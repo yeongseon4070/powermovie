@@ -1,273 +1,414 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+//데이터를 불러오는걸 바로바로 실행하기 위해서 이펙트라는 함수를 집어넣는다.
 import "./App.css"
 
-const newsList = [
+const movieLap = [
     {
-        "source": {
-            "id": null,
-            "name": "Electrek"
-        },
-        "author": "Fred Lambert",
-        "title": "Elon Musk: Tesla Bot can solve labor shortage, but there’s no clear timeline",
-        "description": "Elon Musk gave an update on Tesla Bot, Tesla’s upcoming humanoid robot project, and said that he believes it can solve the labor shortage issue. But the CEO is not committing to any timeline. Earlier this year, Musk announced plans for Tesla Bot, a humanoid r…",
-        "url": "https://electrek.co/2021/12/07/elon-musk-tesla-bot-solve-labor-shortage-no-clear-timeline/",
-        "urlToImage": "https://i2.wp.com/electrek.co/wp-content/uploads/sites/3/2021/10/Tesla-Bot-Hero-china.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1",
-        "publishedAt": "2021-12-07T11:51:40Z",
-        "content": "Elon Musk gave an update on Tesla Bot, Tesla’s upcoming humanoid robot project, and said that he believes it can solve the labor shortage issue.\r\nBut the CEO is not committing to any timeline.\r\nEarli… [+2392 chars]"
+        "adult": false,
+        "backdrop_path": "/lNyLSOKMMeUPr1RsL4KcRuIXwHt.jpg",
+        "genre_ids": [
+            878,
+            28,
+            12
+        ],
+        "id": 580489,
+        "original_language": "en",
+        "original_title": "Venom: Let There Be Carnage",
+        "overview": "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
+        "popularity": 10424.41,
+        "poster_path": "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
+        "release_date": "2021-09-30",
+        "title": "Venom: Let There Be Carnage",
+        "video": false,
+        "vote_average": 7.2,
+        "vote_count": 4087
     },
     {
-        "source": {
-            "id": null,
-            "name": "Faz.net"
-        },
-        "author": "Andreas Mihm",
-        "title": "Erster Supermarkt in Kroatien verkauft Milch für Bitcoin",
-        "description": "Als Spekulationsobjekt sind Kryptowährungen stark gefragt. Als Zahlungsmittel taugen sie bisher eher wenig. Kroatiens größer Lebensmittelhändler will das jetzt ändern.",
-        "url": "https://www.faz.net/aktuell/finanzen/erster-supermarkt-in-kroatien-verkauft-milch-fuer-bitcoin-17671648.html",
-        "urlToImage": "https://media1.faz.net/ppmedia/aktuell/2821841780/1.7671663/facebook_teaser/die-kroatische-supermarktkette.jpg",
-        "publishedAt": "2021-12-07T11:44:11Z",
-        "content": "Freunde von Kryptowährungen wie Bitcoin und Ether müssen nicht nur gegen starke Kursschwankungen wie zuletzt am Wochenende immun sein, sie haben mitunter auch Schwierigkeiten, ihr Geld gegen Ware zu … [+4542 chars]"
+        "adult": false,
+        "backdrop_path": "/5uVhMGsps81CN0S4U9NF0Z4tytG.jpg",
+        "genre_ids": [
+            28,
+            35,
+            80,
+            53
+        ],
+        "id": 512195,
+        "original_language": "en",
+        "original_title": "Red Notice",
+        "overview": "An Interpol-issued Red Notice is a global alert to hunt and capture the world's most wanted. But when a daring heist brings together the FBI's top profiler and two rival criminals, there's no telling what will happen.",
+        "popularity": 3819.259,
+        "poster_path": "/wdE6ewaKZHr62bLqCn7A2DiGShm.jpg",
+        "release_date": "2021-11-04",
+        "title": "Red Notice",
+        "video": false,
+        "vote_average": 6.8,
+        "vote_count": 1788
     },
     {
-        "source": {
-            "id": null,
-            "name": "Motor.ru"
-        },
-        "author": "Анастасия Мельник",
-        "title": "Посмотрите, как разгоняется Tesla Model S с тремя реактивными двигателями",
-        "description": "Американский блогер Мэтт Микка опубликовал на своем YouTube-канале Warped Perceptions новое видео, в котором продемонстрировал результат 42-дневной работы. Инженер разработал три миниатюрных реактивных двигателя, которые установил на Tesla Model S. В результа…",
-        "url": "https://motor.ru/news/turbotesla-07-12-2021.htm",
-        "urlToImage": "https://motor.ru/thumb/1280x720/filters:quality(75)/imgs/2021/12/07/10/5080475/c32ea22d95052c6bb2454768923204f51e32da31.jpg",
-        "publishedAt": "2021-12-07T11:42:55Z",
-        "content": ", Model S . «», «» 3,5 . , , Tesla Model S."
+        "adult": false,
+        "backdrop_path": "/zBkHCpLmHjW2uVURs5uZkaVmgKR.jpg",
+        "genre_ids": [
+            16,
+            35,
+            10751
+        ],
+        "id": 585245,
+        "original_language": "en",
+        "original_title": "Clifford the Big Red Dog",
+        "overview": "As Emily struggles to fit in at home and at school, she discovers a small red puppy who is destined to become her best friend. When Clifford magically undergoes one heck of a growth spurt, becomes a gigantic dog and attracts the attention of a genetics company, Emily and her Uncle Casey have to fight the forces of greed as they go on the run across New York City. Along the way, Clifford affects the lives of everyone around him and teaches Emily and her uncle the true meaning of acceptance and unconditional love.",
+        "popularity": 3379.61,
+        "poster_path": "/ygPTrycbMSFDc5zUpy4K5ZZtQSC.jpg",
+        "release_date": "2021-11-10",
+        "title": "Clifford the Big Red Dog",
+        "video": false,
+        "vote_average": 7.6,
+        "vote_count": 424
     },
     {
-        "source": {
-            "id": null,
-            "name": "Sozcu.com.tr"
-        },
-        "author": "Sözcü",
-        "title": "Elon Musk duyurdu: 2022’de insanlara beyin çipleri yerleştirilebilecek",
-        "description": "Son dönemde adı elektrikli araç markası Tesla ve kripto para ve Bitcoin ile ilgili yaptığı açıklamalarla gündeme gelen ünlü girişimci ve iş insanı Elon Musk’ın sahibi olduğu Neuralink isimli şirketten dikkat çekici bir hamle geldi. Elon Musk, beyin arayüzü te…",
-        "url": "https://www.sozcu.com.tr/2021/teknoloji/elon-musk-duyurdu-2022de-insanlara-beyin-cipleri-yerlestirilebilecek-6812977/",
-        "urlToImage": "https://i01.sozcucdn.com/wp-content/uploads/2021/12/07/iecrop/1_42-sixteen_nine_16_9_1638877252-670x371.jpg",
-        "publishedAt": "2021-12-07T11:42:44Z",
-        "content": "<ul><li>Yazlar büyüt</li><li>Yazlar küçült</li><li>Standart boyut</li></ul>\r\nSon dönemde ad elektrikli araç markas Tesla ve kripto para ve Bitcoin ile ilgili yapt açklamalarla gündeme gelen ünlü giri… [+2395 chars]"
+        "adult": false,
+        "backdrop_path": "/xGrTm3J0FTafmuQ85vF7ZCw94x6.jpg",
+        "genre_ids": [
+            18,
+            36,
+            12
+        ],
+        "id": 589761,
+        "original_language": "ru",
+        "original_title": "Чернобыль",
+        "overview": "The aftermath of a shocking explosion at the Chernobyl nuclear power station made hundreds of people sacrifice their lives to clean up the site of the catastrophe and to successfully prevent an even bigger disaster that could have turned a large part of the European continent into an uninhabitable exclusion zone. This is their story.",
+        "popularity": 3131.783,
+        "poster_path": "/kfQJQWFEoWRVBH8FUKnT0HX1yRS.jpg",
+        "release_date": "2021-04-15",
+        "title": "Chernobyl: Abyss",
+        "video": false,
+        "vote_average": 6.2,
+        "vote_count": 226
     },
     {
-        "source": {
-            "id": null,
-            "name": "Lefigaro.fr"
-        },
-        "author": "Le Figaro avec AFP",
-        "title": "Intel veut faire entrer à Wall Street sa filiale de conduite autonome Mobileye",
-        "description": "Le géant américain des semi-conducteurs Intel a annoncé qu'il comptait faire entrer à Wall Street, à la mi-2022, sa filiale israélienne Mobileye...",
-        "url": "https://www.lefigaro.fr/flash-eco/intel-veut-faire-entrer-a-wall-street-sa-filiale-de-conduite-autonome-mobileye-20211207",
-        "urlToImage": "https://i.f1g.fr/media/cms/704x396_cropupscale/2021/12/07/49676c88813c7331c58e87fd64d92b57e7ec12487d0cae598c76f076b3811146.jpg",
-        "publishedAt": "2021-12-07T11:37:34Z",
-        "content": "Le géant américain des semi-conducteurs Intel a annoncé qu'il comptait faire entrer à Wall Street, à la mi-2022, sa filiale israélienne Mobileye spécialisée dans les technologies de conduite autonome… [+1461 chars]"
+        "adult": false,
+        "backdrop_path": "/cinER0ESG0eJ49kXlExM0MEWGxW.jpg",
+        "genre_ids": [
+            28,
+            12,
+            14
+        ],
+        "id": 566525,
+        "original_language": "en",
+        "original_title": "Shang-Chi and the Legend of the Ten Rings",
+        "overview": "Shang-Chi must confront the past he thought he left behind when he is drawn into the web of the mysterious Ten Rings organization.",
+        "popularity": 3240.721,
+        "poster_path": "/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg",
+        "release_date": "2021-09-01",
+        "title": "Shang-Chi and the Legend of the Ten Rings",
+        "video": false,
+        "vote_average": 7.8,
+        "vote_count": 4007
     },
     {
-        "source": {
-            "id": null,
-            "name": "Hwupgrade.it"
-        },
-        "author": null,
-        "title": "Tesla, continua l'apertura dei Supercharger a terzi: abilitati clienti tedeschi e belgi, la prossima è la Norvegia",
-        "description": "Continua il programma Tesla per aprire i Supercharger anche alle auto elettriche degli altri brand. La Norvegia dovrebbe essere il prossimo mercato per il progetto pilota, poiché mette sul piatto finanziamenti pubblici",
-        "url": "https://auto.hwupgrade.it/news/soluzioni-ricarica/tesla-continua-l-apertura-dei-supercharger-a-terzi-abilitati-clienti-tedeschi-e-belgi-la-prossima-e-la-norvegia_103043.html",
-        "urlToImage": "https://www.hwupgrade.it/i/n/OsloMain.jpg",
-        "publishedAt": "2021-12-07T11:30:16Z",
-        "content": "All'inizio del mese di novembre Tesla aveva aperto la sua rete di ricarica veloceSupercharger anche ai proprietari di auto elettriche della concorrenza, iniziando con un progetto pilota in dieci loca… [+1698 chars]"
+        "adult": false,
+        "backdrop_path": "/g2djzUqA6mFplzC03gDk0WSyg99.jpg",
+        "genre_ids": [
+            12,
+            16,
+            35,
+            10751,
+            14,
+            10402
+        ],
+        "id": 568124,
+        "original_language": "en",
+        "original_title": "Encanto",
+        "overview": "The tale of an extraordinary family, the Madrigals, who live hidden in the mountains of Colombia, in a magical house, in a vibrant town, in a wondrous, charmed place called an Encanto. The magic of the Encanto has blessed every child in the family with a unique gift from super strength to the power to heal—every child except one, Mirabel. But when she discovers that the magic surrounding the Encanto is in danger, Mirabel decides that she, the only ordinary Madrigal, might just be her exceptional family's last hope.",
+        "popularity": 2984.677,
+        "poster_path": "/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg",
+        "release_date": "2021-11-24",
+        "title": "Encanto",
+        "video": false,
+        "vote_average": 7.5,
+        "vote_count": 230
     },
     {
-        "source": {
-            "id": "handelsblatt",
-            "name": "Handelsblatt"
-        },
-        "author": "Thomas Jahn",
-        "title": "Elektromobilität: Tesla-Chef Elon Musk: „Lasst uns alle Subventionen abschaffen“",
-        "description": "Der Tesla-Gründer spricht sich gegen Zuschüsse für Elektroautos oder Ladesäulen aus. Seine Erfahrungen in Deutschland dürften eine Rolle gespielt haben.",
-        "url": "https://www.handelsblatt.com/unternehmen/industrie/elektromobilitaet-tesla-chef-elon-musk-lasst-uns-alle-subventionen-abschaffen/27869148.html",
-        "urlToImage": "https://www.handelsblatt.com/images/elon-musk-in-gruenheide/27869266/4-format2003.jpg",
-        "publishedAt": "2021-12-07T11:27:39Z",
-        "content": "Aber Musk spricht sich gegen das Gesetzespaket mit dem Namen Build Back Better aus, das derzeit im US-Senat verhandelt wird und mit dem insgesamt zwei Billionen Dollar ausgegeben werden sollen.Der Gr… [+2772 chars]"
+        "adult": false,
+        "backdrop_path": "/r2GAjd4rNOHJh6i6Y0FntmYuPQW.jpg",
+        "genre_ids": [
+            12,
+            28,
+            53
+        ],
+        "id": 370172,
+        "original_language": "en",
+        "original_title": "No Time to Die",
+        "overview": "Bond has left active service and is enjoying a tranquil life in Jamaica. His peace is short-lived when his old friend Felix Leiter from the CIA turns up asking for help. The mission to rescue a kidnapped scientist turns out to be far more treacherous than expected, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.",
+        "popularity": 1775.597,
+        "poster_path": "/iUgygt3fscRoKWCV1d0C7FbM9TP.jpg",
+        "release_date": "2021-09-29",
+        "title": "No Time to Die",
+        "video": false,
+        "vote_average": 7.5,
+        "vote_count": 2390
     },
     {
-        "source": {
-            "id": null,
-            "name": "CNBC"
-        },
-        "author": "Sam Shead",
-        "title": "Intel plans to take self-driving car unit public in the U.S. in mid-2022",
-        "description": "Intel has announced that it plans to list Mobileye, the Israeli autonomous driving firm it acquired for $15.3 billion in 2017.",
-        "url": "https://www.cnbc.com/2021/12/07/intel-plans-to-take-self-driving-car-unit-public-in-the-us-in-2022.html",
-        "urlToImage": "https://image.cnbcfm.com/api/v1/image/106913978-16268192682021-07-20t192606z_1895303704_rc2ioo9l1187_rtrmadp_0_mobileye-autonomous.jpeg?v=1626819349",
-        "publishedAt": "2021-12-07T11:26:00Z",
-        "content": "Intel has announced that it plans to list Mobileye, the Israeli autonomous driving firm it acquired for $15.3 billion in 2017 as part of an effort to branch out into new markets.\r\nThe Santa Clara chi… [+2354 chars]"
+        "adult": false,
+        "backdrop_path": "/uWGPC7j70LE64nbetxQGSSYJO53.jpg",
+        "genre_ids": [
+            53,
+            10752
+        ],
+        "id": 762433,
+        "original_language": "en",
+        "original_title": "Zeros and Ones",
+        "overview": "Called to Rome to stop an imminent terrorist bombing, a soldier desperately seeks news of his imprisoned brother — a rebel with knowledge that could thwart the attack. Navigating the capital's darkened streets, he races to a series of ominous encounters to keep the Vatican from being blown to bits.",
+        "popularity": 1813.807,
+        "poster_path": "/a6balsDWCFMHPaPT6rFoBpNjR6z.jpg",
+        "release_date": "2021-11-18",
+        "title": "Zeros and Ones",
+        "video": false,
+        "vote_average": 5.5,
+        "vote_count": 56
     },
     {
-        "source": {
-            "id": null,
-            "name": "Electrek"
-        },
-        "author": "Fred Lambert",
-        "title": "Elon Musk calls for Senate not to pass the Build Back Better act: ‘Tesla doesn’t need the $7,500’",
-        "description": "Elon Musk calls for the Senate not to pass the $2 trillion Build Back Better act and says Tesla doesn’t need the $7,500 tax credit for electric vehicles.\nHowever, his concerns appear to be more about federal spending and the deficit.\n more…\nThe post Elon Musk…",
-        "url": "https://electrek.co/2021/12/07/elon-musk-senate-not-pass-build-back-better-act-tesla-doesnt-need/",
-        "urlToImage": "https://i1.wp.com/electrek.co/wp-content/uploads/sites/3/2020/09/Tesla-CEO-Elon-Musk.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1",
-        "publishedAt": "2021-12-07T11:22:35Z",
-        "content": "Elon Musk calls for the Senate not to pass the $2 trillion Build Back Better act and says Tesla doesn’t need the $7,500 tax credit for electric vehicles.\r\nHowever, his concerns appear to be more abou… [+3343 chars]"
+        "adult": false,
+        "backdrop_path": "/lyvszvJJqqI8aqBJ70XzdCNoK0y.jpg",
+        "genre_ids": [
+            28,
+            12,
+            878,
+            14
+        ],
+        "id": 524434,
+        "original_language": "en",
+        "original_title": "Eternals",
+        "overview": "The Eternals are a team of ancient aliens who have been living on Earth in secret for thousands of years. When an unexpected tragedy forces them out of the shadows, they are forced to reunite against mankind’s most ancient enemy, the Deviants.",
+        "popularity": 1527.452,
+        "poster_path": "/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg",
+        "release_date": "2021-11-03",
+        "title": "Eternals",
+        "video": false,
+        "vote_average": 7.1,
+        "vote_count": 1348
     },
     {
-        "source": {
-            "id": null,
-            "name": "FRANCE 24 English"
-        },
-        "author": "FRANCE 24",
-        "title": "Les inégalités mondiales face au patrimoine \"stratosphérique\" d'une petite caste",
-        "description": "Le rapport 2022 sur les inégalités du World Inequality Lab, publié mardi, souligne que les ultra-riches ont énormément profité de la crise sanitaire du Covid-19, qui a creusé encore davantage les inégalités de patrimoine. Pour y remédier, les économistes ayan…",
-        "url": "https://www.france24.com/fr/%C3%A9co-tech/20211207-les-in%C3%A9galit%C3%A9s-mondiales-face-au-patrimoine-stratosph%C3%A9rique-d-une-petite-caste",
-        "urlToImage": "https://s.france24.com/media/display/f87c5d3c-abf9-11ea-8a17-005056a964fe/w:1280/p:16x9/tiny-men-argent.jpg",
-        "publishedAt": "2021-12-07T11:22:18Z",
-        "content": "Le rapport 2022 sur les inégalités du World Inequality Lab, publié mardi, souligne que les ultra-riches ont énormément profité de la crise sanitaire du Covid-19, qui a creusé encore davantage les iné… [+6232 chars]"
+        "adult": false,
+        "backdrop_path": "/odKqOY6VE6C59YAdGHB0b5Havye.jpg",
+        "genre_ids": [
+            10751,
+            12,
+            14
+        ],
+        "id": 615666,
+        "original_language": "en",
+        "original_title": "A Boy Called Christmas",
+        "overview": "An ordinary young boy called Nikolas sets out on an extraordinary adventure into the snowy north in search of his father who is on a quest to discover the fabled village of the elves, Elfhelm. Taking with him a headstrong reindeer called Blitzen and a loyal pet mouse, Nikolas soon meets his destiny in this magical and endearing story that proves nothing is impossible…",
+        "popularity": 1204.291,
+        "poster_path": "/1sRejtiHOZGggZd9RcmdqbapLM5.jpg",
+        "release_date": "2021-11-25",
+        "title": "A Boy Called Christmas",
+        "video": false,
+        "vote_average": 8,
+        "vote_count": 175
     },
     {
-        "source": {
-            "id": null,
-            "name": "City A.M."
-        },
-        "author": "Crypto AM Daily in association with Luno",
-        "title": "Bitcoin’s return to form continues as global markets recover",
-        "description": "Bitcoin continued its steady recovery yesterday. It’s currently changing hands for more than $51k, up eight per cent over the past 24 hours.\nThe post Bitcoin’s return to form continues as global markets recover appeared first on CityAM.",
-        "url": "https://www.cityam.com/bitcoins-return-to-form-continues-as-global-markets-recover/",
-        "urlToImage": "https://www.cityam.com/wp-content/uploads/2021/11/crypto-am-daily-5.jpeg",
-        "publishedAt": "2021-12-07T11:18:27Z",
-        "content": "Tuesday 07 December 2021 11:18 am\r\nBitcoin continued its steady recovery yesterday. Its currently changing hands for more than $51k, up eight per cent over the past 24 hours. The largest cryptocurren… [+5459 chars]"
+        "adult": false,
+        "backdrop_path": "/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg",
+        "genre_ids": [
+            35,
+            28,
+            12,
+            878
+        ],
+        "id": 550988,
+        "original_language": "en",
+        "original_title": "Free Guy",
+        "overview": "A bank teller called Guy realizes he is a background character in an open world video game called Free City that will soon go offline.",
+        "popularity": 1125.572,
+        "poster_path": "/xmbU4JTUm8rsdtn7Y3Fcm30GpeT.jpg",
+        "release_date": "2021-08-11",
+        "title": "Free Guy",
+        "video": false,
+        "vote_average": 7.8,
+        "vote_count": 3978
     },
     {
-        "source": {
-            "id": "business-insider",
-            "name": "Business Insider"
-        },
-        "author": "bgriffiths@insider.com (Brent D. Griffiths)",
-        "title": "10 Things in Politics: Biden boycotts China's Olympics",
-        "description": "And New York plans to impose a sweeping vaccine mandate.",
-        "url": "https://www.businessinsider.com/10-things-in-politics-biden-boycotts-chinas-olympics-2021-12",
-        "urlToImage": "https://i.insider.com/61ae59637802650019c8e100?width=1200&format=jpeg",
-        "publishedAt": "2021-12-07T11:09:41Z",
-        "content": "Welcome back to 10 Things in Politics. Sign up here to receive this newsletter. Plus, download Insider's app for news on the go click here for iOS and here for Android. Send tips to bgriffiths@inside… [+7478 chars]"
+        "adult": false,
+        "backdrop_path": "/4gKxQIW91hOTELjY5lzjMbLoGxB.jpg",
+        "genre_ids": [
+            28,
+            53,
+            878
+        ],
+        "id": 763164,
+        "original_language": "en",
+        "original_title": "Apex",
+        "overview": "Ex-cop Thomas Malone is serving a life sentence for a crime he didn’t commit. He is offered a chance at freedom if he can survive a deadly game of Apex, in which six hunters pay for the pleasure of hunting another human on a remote island. He accepts, and once he arrives, all hell breaks loose.",
+        "popularity": 1092.11,
+        "poster_path": "/chTkFGToW5bsyw3hgLAe4S5Gt3.jpg",
+        "release_date": "2021-11-12",
+        "title": "Apex",
+        "video": false,
+        "vote_average": 5.6,
+        "vote_count": 253
     },
     {
-        "source": {
-            "id": null,
-            "name": "Business Wire"
-        },
-        "author": null,
-        "title": "Leading Ag Tech Startup Iron Ox Appoints Impossible Foods and Tesla Veteran Myra Pasek as General Counsel",
-        "description": "SAN CARLOS, Calif.--(BUSINESS WIRE)--Iron Ox, a farming innovation company with deep expertise in plant science, robotics and artificial intelligence, has hired former Impossible Foods and Tesla executive Myra Pasek as General Counsel. Pasek joins the industr…",
-        "url": "https://www.businesswire.com/news/home/20211207005456/en/Leading-Ag-Tech-Startup-Iron-Ox-Appoints-Impossible-Foods-and-Tesla-Veteran-Myra-Pasek-as-General-Counsel",
-        "urlToImage": "https://mms.businesswire.com/media/20211207005456/en/933574/23/Myra.jpg",
-        "publishedAt": "2021-12-07T11:05:09Z",
-        "content": "SAN CARLOS, Calif.--(BUSINESS WIRE)--Iron Ox, a farming innovation company with deep expertise in plant science, robotics and artificial intelligence, has hired former Impossible Foods and Tesla exec… [+4467 chars]"
+        "adult": false,
+        "backdrop_path": "/Aebz7s8EHQXxHR98J8Vw6QVGggq.jpg",
+        "genre_ids": [
+            878,
+            12
+        ],
+        "id": 438631,
+        "original_language": "en",
+        "original_title": "Dune",
+        "overview": "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
+        "popularity": 1221.81,
+        "poster_path": "/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+        "release_date": "2021-09-15",
+        "title": "Dune",
+        "video": false,
+        "vote_average": 8,
+        "vote_count": 4564
     },
     {
-        "source": {
-            "id": null,
-            "name": "Notebookcheck.net"
-        },
-        "author": "Daniel Zlatev",
-        "title": "Tesla investigated by the SEC over disclosure of fire hazard in SolarCity panel installations",
-        "description": "An ex-SolarCity quality assurance employee has filed a lawsuit against Tesla Energy arguing criminal negligence regarding faulty solar roof installations that caused residential and commercial fires. In complaints filed before the Securities and Exchange Comm…",
-        "url": "https://www.notebookcheck.net/Tesla-investigated-by-the-SEC-over-disclosure-of-fire-hazard-in-SolarCity-panel-installations.583388.0.html",
-        "urlToImage": "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Solar_city_roof_Tesla.jpg",
-        "publishedAt": "2021-12-07T11:03:00Z",
-        "content": "Tesla's swift purchase of SolarCity back in 2016 may have been a little too quick, as the U.S. Securities and Exchange Commission has now initiated a probe into the solar roofing division. The invest… [+1952 chars]"
+        "adult": false,
+        "backdrop_path": "/iUeeZ5PWfZGgUtCJfwcgmCfdzoI.jpg",
+        "genre_ids": [
+            16,
+            878,
+            10751,
+            35
+        ],
+        "id": 482321,
+        "original_language": "en",
+        "original_title": "Ron's Gone Wrong",
+        "overview": "In a world where walking, talking, digitally connected bots have become children's best friends, an 11-year-old finds that his robot buddy doesn't quite work the same as the others do.",
+        "popularity": 1133.251,
+        "poster_path": "/gA9QxSravC2EVEkEKgyEmDrfL0e.jpg",
+        "release_date": "2021-10-15",
+        "title": "Ron's Gone Wrong",
+        "video": false,
+        "vote_average": 8.7,
+        "vote_count": 236
     },
     {
-        "source": {
-            "id": null,
-            "name": "Forbes"
-        },
-        "author": "Moira Forbes, Forbes Staff, \n Moira Forbes, Forbes Staff\n https://www.forbes.com/sites/moiraforbes/",
-        "title": "The World’s 100 Most Powerful Women: Redefining The Face Of Power In 2021",
-        "description": "Meet the world's most powerful women of 2021, Forbes’ definitive audit of the foremost female CEOs, entrepreneurs, philanthropists and policy makers, who are solving for society’s most intractable problems and steering the world toward a stronger post-pandemi…",
-        "url": "https://www.forbes.com/sites/moiraforbes/2021/12/07/the-worlds-100-most-powerful-women-redefining-the-face-of-power-in-2021/",
-        "urlToImage": "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F61af3c91f2f2f921bc3e57db%2F0x0.jpg",
-        "publishedAt": "2021-12-07T11:00:38Z",
-        "content": "The thing that immediately jumps out on this years list of the Worlds 100 Most Powerful Women is who is now at the top and who is not. Serving an astonishing 16 years at the helm of Europes most powe… [+5937 chars]"
+        "adult": false,
+        "backdrop_path": "/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg",
+        "genre_ids": [
+            28,
+            18,
+            36
+        ],
+        "id": 617653,
+        "original_language": "en",
+        "original_title": "The Last Duel",
+        "overview": "King Charles VI declares that Knight Jean de Carrouges settle his dispute with his squire, Jacques Le Gris, by challenging him to a duel.",
+        "popularity": 1513.273,
+        "poster_path": "/zjrJE0fpzPvX8saJXj8VNfcjBoU.jpg",
+        "release_date": "2021-10-13",
+        "title": "The Last Duel",
+        "video": false,
+        "vote_average": 7.7,
+        "vote_count": 708
     },
     {
-        "source": {
-            "id": "the-hill",
-            "name": "The Hill"
-        },
-        "author": "Rafael Bernal",
-        "title": "Mexico compares Biden electric car tax credits to Trump's tariff threat",
-        "description": "Mexico is ratcheting up pressure against electric vehicle (EV) tax credits for American-built cars, a measure in President Biden's signature Build Back Better bill that some Mexican officials a...",
-        "url": "https://thehill.com/policy/energy-environment/584616-mexico-compares-biden-electric-car-tax-credits-to-trumps-tariff",
-        "urlToImage": "https://thehill.com/sites/default/files/article_images/072810ap-paul-sakuma_ev.jpg",
-        "publishedAt": "2021-12-07T11:00:27Z",
-        "content": "Mexico is ratcheting up pressure against electric vehicle (EV) tax credits for American-built cars, a measure in President BidenJoe BidenMan sentenced to nearly four years for running scam Trump, Bid… [+7040 chars]"
+        "adult": false,
+        "backdrop_path": "/pKgfWzxOpvGV3MQ0kLjLdjKAzUe.jpg",
+        "genre_ids": [
+            18,
+            80
+        ],
+        "id": 785538,
+        "original_language": "pt",
+        "original_title": "7 Prisioneiros",
+        "overview": "An impoverished teen seeking to escape the clutches of a human trafficker must weigh living up to his moral code against his struggle to survive.",
+        "popularity": 907.073,
+        "poster_path": "/5svMKCGnR6Yvj8wxldvDvgUi0Jk.jpg",
+        "release_date": "2021-10-22",
+        "title": "7 Prisoners",
+        "video": false,
+        "vote_average": 7.3,
+        "vote_count": 127
     },
     {
-        "source": {
-            "id": null,
-            "name": "Phonandroid"
-        },
-        "author": "William Zimmer",
-        "title": "Mazda 2 Hybrid : le clone de la Toyota Yaris arrive au printemps 2022 en Europe",
-        "description": "Mazda vient de dévoiler sa Mazda 2 Hybrid basée sur la Toyota Yaris. Elle dispose d'un système hybride à recharge automatique complet et sera vendu aux côtés de la Mazda 2 2022 ordinaire en Europe au...",
-        "url": "https://www.phonandroid.com/mazda-2-hybrid-le-clone-de-la-toyota-yaris-arrive-au-printemps-2022-en-europe.html",
-        "urlToImage": "https://img.phonandroid.com/2021/12/Mazda-2-Hybrid.jpg",
-        "publishedAt": "2021-12-07T11:00:11Z",
-        "content": "Mazda vient de dévoiler sa Mazda 2 Hybrid basée sur la Toyota Yaris. Elle dispose d'un système hybride à recharge automatique complet et sera vendu aux côtés de la Mazda 2 2022 ordinaire en Europe au… [+1936 chars]"
+        "adult": false,
+        "backdrop_path": "/lV3UFPPxDIPelh46G9oySXN9Mcz.jpg",
+        "genre_ids": [
+            10749,
+            18
+        ],
+        "id": 744275,
+        "original_language": "en",
+        "original_title": "After We Fell",
+        "overview": "Just as Tessa's life begins to become unglued, nothing is what she thought it would be. Not her friends nor her family. The only person that she should be able to rely on is Hardin, who is furious when he discovers the massive secret that she's been keeping. Before Tessa makes the biggest decision of her life, everything changes because of revelations about her family.",
+        "popularity": 841.375,
+        "poster_path": "/dU4HfnTEJDf9KvxGS9hgO7BVeju.jpg",
+        "release_date": "2021-09-01",
+        "title": "After We Fell",
+        "video": false,
+        "vote_average": 7.2,
+        "vote_count": 1081
     },
     {
-        "source": {
-            "id": null,
-            "name": "Gizmodo Australia"
-        },
-        "author": "Matt Novak",
-        "title": "MyCryptoWallet Collapses and Leaves Bitcoin Traders Stranded: Report",
-        "description": "MyCryptoWallet, an Australia-based cryptocurrency exchange that allowed users to buy and sell coins like ether and bitcoin, has collapsed and...\nThe post MyCryptoWallet Collapses and Leaves Bitcoin Traders Stranded: Report appeared first on Gizmodo Australia.…",
-        "url": "https://www.gizmodo.com.au/2021/12/mycryptowallet-collapses-and-leaves-bitcoin-traders-stranded-report/",
-        "urlToImage": "https://imgix.gizmodo.com.au/content/uploads/sites/2/2021/12/07/8b23a1a3c51fc4983c06b093c93b5696-scaled.jpg?ar=16%3A9&auto=format&fit=crop&q=65&w=1200",
-        "publishedAt": "2021-12-07T11:00:00Z",
-        "content": "MyCryptoWallet, an Australia-based cryptocurrency exchange that allowed users to buy and sell coins like ether and bitcoin, has collapsed and left users without access to funds, according to multiple… [+2448 chars]"
+        "adult": false,
+        "backdrop_path": "/vr6TqnRLcZACo9htfcmBUcjs2t4.jpg",
+        "genre_ids": [
+            10751,
+            35
+        ],
+        "id": 802217,
+        "original_language": "en",
+        "original_title": "8-Bit Christmas",
+        "overview": "In suburban Chicago during the late 1980s, ten-year-old Jake Doyle embarks on a herculean quest to get the latest and greatest video game system for Christmas.",
+        "popularity": 750.354,
+        "poster_path": "/5YwaISdOwp8Zu6O7kwBeUn8a7Pu.jpg",
+        "release_date": "2021-11-25",
+        "title": "8-Bit Christmas",
+        "video": false,
+        "vote_average": 6.5,
+        "vote_count": 69
     },
     {
-        "source": {
-            "id": "business-insider",
-            "name": "Business Insider"
-        },
-        "author": "jerb@insider.com (Jordan Parker Erb)",
-        "title": "10 things in tech you need to know today",
-        "description": "New revelations have emerged about Elon Musk's Autopilot push, and DoorDash rolled out ultrafast delivery in NYC: 10 things in tech you need to know.",
-        "url": "https://www.businessinsider.com/10-things-in-tech-you-need-to-know-today-7-2021-12",
-        "urlToImage": "https://i.insider.com/61ae886b7db53500184cac58?width=1200&format=jpeg",
-        "publishedAt": "2021-12-07T11:00:00Z",
-        "content": "Howdy. We're covering new revelations about Elon Musk's push for Autopilot, and a flying car that you have to partially assemble yourself.\r\nLet's get to it.\r\nIf this was forwarded to you, sign up her… [+4072 chars]"
+        "adult": false,
+        "backdrop_path": "/9OE62lhp5FPNJMfKXodegVLjHUA.jpg",
+        "genre_ids": [
+            16,
+            10751
+        ],
+        "id": 823609,
+        "original_language": "en",
+        "original_title": "Monster Family 2",
+        "overview": "To free Baba Yaga and Renfield from the clutches of Monster Hunter Mila Starr, the Wishbone Family once more transforms into a Vampire, Frankenstein's Monster, a Mummy and a Werewolf. Aided and abetted by their three pet bats, our Monster Family zooms around the world again to save their friends, make new monstrous acquaintances and finally come to the realization that ‘Nobody’s Perfect’ – even those with flaws can find happiness.",
+        "popularity": 705.97,
+        "poster_path": "/em2NLSbVj49NjpdqmaKYuqKYZET.jpg",
+        "release_date": "2021-01-13",
+        "title": "Monster Family 2",
+        "video": false,
+        "vote_average": 7.9,
+        "vote_count": 12
     },
     {
-        "source": {
-            "id": null,
-            "name": "Leganerd.com"
-        },
-        "author": "Umberto Stentella",
-        "title": "Tesla vuole aprire la sua rete Supercharger a tutte le auto elettriche anche in Norvegia",
-        "description": "Dopo l’Olanda, Tesla ore vuole testare l’apertura a tutte le auto della sua rete Supercharger anche in Norvegia. In attesa dell’ufficialità del progetto, la casa automobilistica ha iniziato a dialogare con il governo locale. Tesla vuole mettere a disposizione…",
-        "url": "https://leganerd.com/2021/12/07/tesla-vuole-aprire-la-sua-rete-supercharger-a-tutte-le-auto-elettriche-anche-in-norvegia/",
-        "urlToImage": "https://leganerd.com/wp-content/uploads/2021/06/tesla-supercharger.jpg",
-        "publishedAt": "2021-12-07T10:57:42Z",
-        "content": "Dopo l’Olanda, Tesla ore vuole testare l’apertura a tutte le auto della sua rete Supercharger anche in Norvegia. In attesa dell’ufficialità del progetto, la casa automobilistica ha iniziato a dialoga… [+1410 chars]"
-    }
+        "adult": false,
+        "backdrop_path": "/d0mpUFKzoPwF1KsdjHpkkaYSvKm.jpg",
+        "genre_ids": [
+            37
+        ],
+        "id": 618162,
+        "original_language": "en",
+        "original_title": "The Harder They Fall",
+        "overview": "Gunning for revenge, outlaw Nat Love saddles up with his gang to take down enemy Rufus Buck, a ruthless crime boss who just got sprung from prison.",
+        "popularity": 673.441,
+        "poster_path": "/su9WzL7lwUZPhjH6eZByAYFx2US.jpg",
+        "release_date": "2021-10-22",
+        "title": "The Harder They Fall",
+        "video": false,
+        "vote_average": 6.8,
+        "vote_count": 400
+    },
 ]
 
 const App = () => {
 
     // {안에는 함수,상태값들이 들어간다.
-    const [newsListDate, setNewsListDate] = useState([])
+    // A는 버튼 클릭하기전 B정보는 버튼 클릭후 변수 적용 노출.
+    const [movieLapDate, setMovieLapDate] = useState([])
     //
     // const [bdate, setBDate] = useState(22)
     //
@@ -277,23 +418,25 @@ const App = () => {
     // const changeText = () => {
     //     setCDate(adate+bdate)
     // }
+    useEffect(() => {
+        setMovieLapDate(movieLap)
+    }, [])
 
-    const getnewsList = () => {
-        setNewsListDate(newsList)
+    const getmovieList = () => {
+
     }
     
   return (
       <div className={"App"}>
-          {newsListDate.map(news => (
+          {movieLapDate.map(movieList => (
               <h1>
-                  {news.name}
-                  {news.author}
+                  {movieList.original_title}
               </h1>
 
 
           ))}
-          <button onClick={getnewsList}>
-              뉴스 불러오기.
+          <button onClick={getmovieList}>
+              영화사 정보 불러오기.
           </button>
         {/*<hi>*/}
         {/*    {adate} + {bdate} = {cdate}*/}
