@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 //데이터를 불러오는걸 바로바로 실행하기 위해서 이펙트라는 함수를 집어넣는다.
 import "./App.css"
 
+import Movie from "./Movie";
+
 const movieLap = [
     {
         "adult": false,
@@ -429,11 +431,11 @@ const App = () => {
   return (
       <div className={"App"}>
           {movieLapDate.map(movieList => (
-              <h1>
-                  {movieList.original_title}
-              </h1>
-
-
+             <Movie
+                title={movieList.original_title}
+                overview={movieList.overview}
+                poster={movieList.poster_path}
+             />
           ))}
           <button onClick={getmovieList}>
               영화사 정보 불러오기.
