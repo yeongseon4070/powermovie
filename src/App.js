@@ -8,6 +8,9 @@ const App = () => {
         <hi>
           powermovie's first react App
         </hi>
+          <button>
+              hi go!
+          </button>
       </div>
   );
 };
